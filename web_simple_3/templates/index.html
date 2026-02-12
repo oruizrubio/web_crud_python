@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Python & Supabase</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1/css/pico.min.css">
+</head>
+<body class="container">
+    <h2>Gestión de Productos</h2>
+   
+    <form action="/agregar" method="POST">
+        <div class="grid">
+            <input type="text" name="codigo" placeholder="Código" required>
+            <input type="text" name="descripcion" placeholder="Descripción" required>
+            <button type="submit">Agregar</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in productos %}
+            <tr>
+                <td>{{ p.codigo }}</td>
+                <td>
+                    <form action="/editar/{{ p.codigo }}" method="POST" style="display:inline;">
+                        <input type="text" name="descripcion" value="{{ p.descripcion }}">
+                </td>
+                <td>
+                        <button type="submit" class="outline">Actualizar</button>
+                    </form>
+                    <a href="/eliminar/{{ p.codigo }}" style="color:red;">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
